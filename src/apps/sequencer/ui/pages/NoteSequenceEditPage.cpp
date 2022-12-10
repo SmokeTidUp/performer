@@ -186,6 +186,8 @@ void NoteSequenceEditPage::draw(Canvas &canvas) {
             );
             break;
         case Layer::Note: {
+            // hubert
+            // tohle patri i do Gate layer
             int rootNote = sequence.selectedRootNote(_model.project().rootNote());
             canvas.setColor(0xf);
             FixedStringBuilder<8> str;
@@ -306,6 +308,8 @@ void NoteSequenceEditPage::keyPress(KeyPressEvent &event) {
     updateMonitorStep();
 
     if (!key.shiftModifier() && key.isStep()) {
+        //TU, PICO! hubert
+        // tohle se musi dit pro kazdy layer, nebo se poseru z toho uz!
         int stepIndex = stepOffset() + key.step();
         switch (layer()) {
         case Layer::Gate:
@@ -363,50 +367,51 @@ void NoteSequenceEditPage::encoder(EncoderEvent &event) {
         if (_stepSelection[stepIndex]) {
             auto &step = sequence.step(stepIndex);
             bool shift = globalKeyState()[Key::Shift];
+            
             switch (layer()) {
-            case Layer::Gate:
-                step.setGate(event.value() > 0);
-                break;
-            case Layer::GateProbability:
-                step.setGateProbability(step.gateProbability() + event.value());
-                break;
-            case Layer::GateOffset:
-                step.setGateOffset(step.gateOffset() + event.value());
-                break;
-            case Layer::Retrigger:
-                step.setRetrigger(step.retrigger() + event.value());
-                break;
-            case Layer::RetriggerProbability:
-                step.setRetriggerProbability(step.retriggerProbability() + event.value());
-                break;
-            case Layer::Length:
-                step.setLength(step.length() + event.value());
-                break;
-            case Layer::LengthVariationRange:
-                step.setLengthVariationRange(step.lengthVariationRange() + event.value());
-                break;
-            case Layer::LengthVariationProbability:
-                step.setLengthVariationProbability(step.lengthVariationProbability() + event.value());
-                break;
-            case Layer::Note:
-                step.setNote(step.note() + event.value() * ((shift && scale.isChromatic()) ? scale.notesPerOctave() : 1));
-                updateMonitorStep();
-                break;
-            case Layer::NoteVariationRange:
-                step.setNoteVariationRange(step.noteVariationRange() + event.value() * ((shift && scale.isChromatic()) ? scale.notesPerOctave() : 1));
-                updateMonitorStep();
-                break;
-            case Layer::NoteVariationProbability:
-                step.setNoteVariationProbability(step.noteVariationProbability() + event.value());
-                break;
-            case Layer::Slide:
-                step.setSlide(event.value() > 0);
-                break;
-            case Layer::Condition:
-                step.setCondition(ModelUtils::adjustedEnum(step.condition(), event.value()));
-                break;
-            case Layer::Last:
-                break;
+                case Layer::Gate:
+                    step.setGate(event.value() > 0);
+                    break;
+                case Layer::GateProbability:
+                    step.setGateProbability(step.gateProbability() + event.value());
+                    break;
+                case Layer::GateOffset:
+                    step.setGateOffset(step.gateOffset() + event.value());
+                    break;
+                case Layer::Retrigger:
+                    step.setRetrigger(step.retrigger() + event.value());
+                    break;
+                case Layer::RetriggerProbability:
+                    step.setRetriggerProbability(step.retriggerProbability() + event.value());
+                    break;
+                case Layer::Length:
+                    step.setLength(step.length() + event.value());
+                    break;
+                case Layer::LengthVariationRange:
+                    step.setLengthVariationRange(step.lengthVariationRange() + event.value());
+                    break;
+                case Layer::LengthVariationProbability:
+                    step.setLengthVariationProbability(step.lengthVariationProbability() + event.value());
+                    break;
+                case Layer::Note:
+                    step.setNote(step.note() + event.value() * ((shift && scale.isChromatic()) ? scale.notesPerOctave() : 1));
+                    updateMonitorStep();
+                    break;
+                case Layer::NoteVariationRange:
+                    step.setNoteVariationRange(step.noteVariationRange() + event.value() * ((shift && scale.isChromatic()) ? scale.notesPerOctave() : 1));
+                    updateMonitorStep();
+                    break;
+                case Layer::NoteVariationProbability:
+                    step.setNoteVariationProbability(step.noteVariationProbability() + event.value());
+                    break;
+                case Layer::Slide:
+                    step.setSlide(event.value() > 0);
+                    break;
+                case Layer::Condition:
+                    step.setCondition(ModelUtils::adjustedEnum(step.condition(), event.value()));
+                    break;
+                case Layer::Last:
+                    break;
             }
         }
     }

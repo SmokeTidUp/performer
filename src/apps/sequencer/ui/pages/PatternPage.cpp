@@ -256,7 +256,7 @@ void PatternPage::keyPress(KeyPressEvent &event) {
 
     if (key.isStep()) {
         int pattern = key.step();
-
+        // swap this behaviour? hubert
         if (key.shiftModifier()) {
             // select edit pattern
             _project.setSelectedPatternIndex(pattern);

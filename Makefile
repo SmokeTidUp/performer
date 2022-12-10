@@ -99,7 +99,7 @@ openocd_install: openocd_download $(OPENOCD_INSTALL_MARKER)
 
 $(OPENOCD_INSTALL_MARKER):
 	$(V1) mkdir -p $(OPENOCD_BUILD_DIR)
-	$(V1) tar -C $(OPENOCD_BUILD_DIR) --strip-components=1 -xjf "$(DL_DIR)/$(OPENOCD_FILE)"
+	#$(V1) tar -C $(OPENOCD_BUILD_DIR) --strip-components=1 -xjf "$(DL_DIR)/$(OPENOCD_FILE)"
 	# build and install
 	$(V1) mkdir -p $(OPENOCD_DIR)
 	$(V1) ( \
@@ -116,7 +116,7 @@ $(OPENOCD_INSTALL_MARKER):
 openocd_download: | $(DL_DIR)
 openocd_download: $(DL_DIR)/$(OPENOCD_FILE)
 $(DL_DIR)/$(OPENOCD_FILE):
-	$(V1) curl -L -k -o "$(DL_DIR)/$(OPENOCD_FILE)" -z "$(DL_DIR)/$(OPENOCD_FILE)" "$(OPENOCD_URL)"
+#	$(V1) curl -L -k -o "$(DL_DIR)/$(OPENOCD_FILE)" -z "$(DL_DIR)/$(OPENOCD_FILE)" "$(OPENOCD_URL)"
 
 .PHONY: openocd_clean
 openocd_clean:
