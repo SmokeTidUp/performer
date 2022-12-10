@@ -152,7 +152,7 @@ void Frontend::setup() {
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
 #else
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 #endif
 
@@ -172,6 +172,7 @@ void Frontend::setup() {
 void Frontend::setupWindow() {
     Vector2i size(Frontpanel::windowWidth, Frontpanel::windowHeight + Frontpanel::controlHeight);
     _window = std::make_shared<Window>("PER|FORMER Simulator", size);
+
 
     setupFrontpanel();
     setupControls();

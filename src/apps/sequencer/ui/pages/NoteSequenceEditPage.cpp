@@ -1,3 +1,13 @@
+/*
+TODO hubert
+
+Allow changing note values on Gate layer
+Pushing step button toggles gate on any layer
+Pushing encoder will initialize to default pitch
+
+Make  note values appear on Gate layer
+*/
+
 #include "NoteSequenceEditPage.h"
 
 #include "Pages.h"
@@ -134,8 +144,22 @@ void NoteSequenceEditPage::draw(Canvas &canvas) {
         }
 
         switch (layer()) {
-        case Layer::Gate:
+        case Layer::Gate: {
+            //hubert
+            // I added this from the Note layer. I seriously think that the gate and note layer should be connected
+            // as even though the concept of these two not being related is cool, for my purposes it's definitely countereffective
+            // TODO: make this an option in the setting, or toggle this by the CV Update Mode - if set to Gate, it's only logical to have the two layers tied together
+            int rootNote = sequence.selectedRootNote(_model.project().rootNote());
+            canvas.setColor(0xf);
+            FixedStringBuilder<8> str;
+            scale.noteName(str, step.note(), rootNote, Scale::Short1);
+            canvas.drawText(x + (stepWidth - canvas.textWidth(str) + 1) / 2, y + 20, str);
+            str.reset();
+            scale.noteName(str, step.note(), rootNote, Scale::Short2);
+            canvas.drawText(x + (stepWidth - canvas.textWidth(str) + 1) / 2, y + 27, str);
+
             break;
+        }
         case Layer::GateProbability:
             SequencePainter::drawProbability(
                 canvas,
@@ -367,7 +391,7 @@ void NoteSequenceEditPage::encoder(EncoderEvent &event) {
         if (_stepSelection[stepIndex]) {
             auto &step = sequence.step(stepIndex);
             bool shift = globalKeyState()[Key::Shift];
-            
+
             switch (layer()) {
                 case Layer::Gate:
                     step.setGate(event.value() > 0);

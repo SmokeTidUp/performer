@@ -31,6 +31,8 @@ Renderer::Renderer(SDL_Window *window) :
 #else
     _nvg = nvgCreateGL3(NVG_ANTIALIAS | NVG_STENCIL_STROKES | NVG_DEBUG);
 #endif
+
+
     if (!_nvg) {
         std::cerr << "Failed to create NanoVG context!" << std::endl;
     }
