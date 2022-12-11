@@ -319,11 +319,11 @@ void NoteSequenceEditPage::keyUp(KeyEvent &event) {
         // switch (layer()) {
         // case Layer::Gate:
 
-        if(!sequence.step().gate() && noteChanged) {
+        if(!sequence.step().gate() && notesChanged) {
             sequence.step(stepIndex).toggleGate();
             event.consume();
-            noteChanged = false;
-        } else if (!noteChanged) {
+            notesChanged = false;
+        } else if (!notesChanged) {
             sequence.step(stepIndex).toggleGate();
             event.consume();
         }
@@ -411,7 +411,7 @@ void NoteSequenceEditPage::encoder(EncoderEvent &event) {
                 case Layer::Gate:
                     // added from Note page by hubert
                     step.setNote(step.note() + event.value() * ((shift && scale.isChromatic()) ? scale.notesPerOctave() : 1));
-                    noteChanged = true;
+                    notesChanged = true;
                     updateMonitorStep();
                     break;
                 case Layer::GateProbability:
