@@ -60,7 +60,6 @@ private:
     bool _showDetail;
     uint32_t _showDetailTicks;
 
-    bool notesChanged = false; // to determine whether note has been changed when key is pressed | hubert
 
     NoteSequenceListModel _listModel;
 

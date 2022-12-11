@@ -319,11 +319,11 @@ void NoteSequenceEditPage::keyUp(KeyEvent &event) {
         // switch (layer()) {
         // case Layer::Gate:
 
-        if(!sequence.step(stepIndex).gate() && notesChanged) {
+        if(!sequence.step(stepIndex).gate() && sequence.step(stepIndex).stepChanged()) {
             sequence.step(stepIndex).toggleGate();
             event.consume();
-            notesChanged = false;
-        } else if (!notesChanged) {
+            sequence.step(stepIndex).setStepChanged(false);
+        } else if (!sequence.step(stepIndex).stepChanged()) {
             sequence.step(stepIndex).toggleGate();
             event.consume();
         }
@@ -411,7 +411,7 @@ void NoteSequenceEditPage::encoder(EncoderEvent &event) {
                 case Layer::Gate:
                     // added from Note page by hubert
                     step.setNote(step.note() + event.value() * ((shift && scale.isChromatic()) ? scale.notesPerOctave() : 1));
-                    notesChanged = true;
+                    step.setStepChanged(true); // hubert
                     updateMonitorStep();
                     break;
                 case Layer::GateProbability:
