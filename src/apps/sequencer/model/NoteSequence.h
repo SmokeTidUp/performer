@@ -224,6 +224,9 @@ public:
             BitField<uint32_t, 9, Condition::Bits> condition;
             // 16 bits left
         } _data1;
+
+        bool stepChanged = false; // to determine whether the step was changed
+        
     };
 
     typedef std::array<Step, CONFIG_STEP_COUNT> StepArray;
@@ -467,8 +470,6 @@ private:
     StepArray _steps;
 
     uint8_t _edited;
-
-    bool stepChanged = false; // to determine whether the step was changed
 
     friend class NoteTrack;
 };
