@@ -441,6 +441,7 @@ void NoteSequenceEditPage::encoder(EncoderEvent &event) {
                     break;
                 case Layer::Note:
                     step.setNote(step.note() + event.value() * ((shift && scale.isChromatic()) ? scale.notesPerOctave() : 1));
+                    step.setStepChanged(true); // hubert
                     updateMonitorStep();
                     break;
                 case Layer::NoteVariationRange:
