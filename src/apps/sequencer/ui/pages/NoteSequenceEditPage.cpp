@@ -70,6 +70,8 @@ NoteSequenceEditPage::NoteSequenceEditPage(PageManager &manager, PageContext &co
         const auto &sequence = _project.selectedNoteSequence();
         return sequence.step(a).layerValue(layer) == sequence.step(b).layerValue(layer);
     });
+
+    firstChange = true;
 }
 
 void NoteSequenceEditPage::enter() {
@@ -83,7 +85,6 @@ void NoteSequenceEditPage::exit() {
 }
 
 void NoteSequenceEditPage::draw(Canvas &canvas) {
-    firstChange = true;
     WindowPainter::clear(canvas);
     WindowPainter::drawHeader(canvas, _model, _engine, "STEPS");
     WindowPainter::drawActiveFunction(canvas, NoteSequence::layerName(layer()));
@@ -318,7 +319,7 @@ void NoteSequenceEditPage::keyUp(KeyEvent &event) {
 
     // this got moved here from the KeyPress function.
     // it's more ergonomic for me to toggle the steps on key up
-    // TODO: if gate is off and pitch has been changed during key down, enable gate, if gate is on and pitch has been changed, keep the gate on
+    // TODO DONE: if gate is off and pitch has been changed during key down, enable gate, if gate is on and pitch has been changed, keep the gate on
     const auto &key = event.key();
     auto &sequence = _project.selectedNoteSequence();
 
