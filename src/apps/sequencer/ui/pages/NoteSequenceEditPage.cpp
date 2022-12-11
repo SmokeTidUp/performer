@@ -323,7 +323,7 @@ void NoteSequenceEditPage::keyUp(KeyEvent &event) {
             sequence.step(stepIndex).toggleGate();
             event.consume();
             sequence.step(stepIndex).setStepChanged(false);
-        } else /*if (!sequence.step(stepIndex).stepChanged()) */ {
+        } else if (!sequence.step(stepIndex).stepChanged())  {
             sequence.step(stepIndex).toggleGate();
             event.consume();
         }
