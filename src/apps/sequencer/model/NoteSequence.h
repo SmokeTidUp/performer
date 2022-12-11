@@ -226,7 +226,7 @@ public:
             // 16 bits left
         } _data1;
 
-        bool stepChanged = false; // to determine whether the step was changed
+        bool Step::stepChanged = false; // to determine whether the step was changed
 
     };
 
