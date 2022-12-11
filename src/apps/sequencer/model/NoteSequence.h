@@ -198,8 +198,8 @@ public:
             return !(*this == other);
         }
 
-        void setStepChanged(bool changed) const { stepChanged = changed; } // set that step was changed | hubert
-        bool stepChanged() const { return stepChanged; } // to determine whether the step was changed | hubert
+        static bool stepChanged() const { return stepChanged; } // to determine whether the step was changed | hubert
+        void setStepChanged(bool changed) { stepChanged = changed; } // set that step was changed | hubert
 
 
 
@@ -222,6 +222,7 @@ public:
             BitField<uint32_t, 2, RetriggerProbability::Bits> retriggerProbability;
             BitField<uint32_t, 5, GateOffset::Bits> gateOffset;
             BitField<uint32_t, 9, Condition::Bits> condition;
+
             // 16 bits left
         } _data1;
 
