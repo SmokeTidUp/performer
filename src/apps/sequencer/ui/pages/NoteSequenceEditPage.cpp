@@ -83,6 +83,7 @@ void NoteSequenceEditPage::exit() {
 }
 
 void NoteSequenceEditPage::draw(Canvas &canvas) {
+    firstChange = true;
     WindowPainter::clear(canvas);
     WindowPainter::drawHeader(canvas, _model, _engine, "STEPS");
     WindowPainter::drawActiveFunction(canvas, NoteSequence::layerName(layer()));
