@@ -198,7 +198,7 @@ public:
             return !(*this == other);
         }
 
-        bool setStepChanged(bool changed) const { stepChanged = changed; } // set that step was changed | hubert
+        void setStepChanged(bool changed) const { stepChanged = changed; } // set that step was changed | hubert
         bool stepChanged() const { return stepChanged; } // to determine whether the step was changed | hubert
 
 
@@ -226,7 +226,7 @@ public:
         } _data1;
 
         bool stepChanged = false; // to determine whether the step was changed
-        
+
     };
 
     typedef std::array<Step, CONFIG_STEP_COUNT> StepArray;
