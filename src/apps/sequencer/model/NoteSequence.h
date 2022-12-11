@@ -198,8 +198,8 @@ public:
             return !(*this == other);
         }
 
-        bool stepChanged() const { return (*this).stepChanged; } // to determine whether the step was changed | hubert
-        void setStepChanged(bool changed) { (*this).stepChanged = changed; } // set that step was changed | hubert
+        bool stepChanged() const { return stepChanged; } // to determine whether the step was changed | hubert
+        void setStepChanged(bool changed) { stepChanged = changed; } // set that step was changed | hubert
 
 
 
@@ -226,7 +226,7 @@ public:
             // 16 bits left
         } _data1;
 
-        bool Step::stepChanged = false; // to determine whether the step was changed
+        static bool stepChanged = false; // to determine whether the step was changed
 
     };
 
