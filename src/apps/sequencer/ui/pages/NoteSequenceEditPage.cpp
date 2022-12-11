@@ -315,7 +315,7 @@ void NoteSequenceEditPage::keyUp(KeyEvent &event) {
 
     if (!key.shiftModifier() && key.isStep()) {
         
-        //int stepIndex = stepOffset() + key.step();
+        int stepIndex = stepOffset() + key.step();
         // switch (layer()) {
         // case Layer::Gate:
 
