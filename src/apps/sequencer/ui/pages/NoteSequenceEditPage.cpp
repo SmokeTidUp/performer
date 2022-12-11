@@ -319,7 +319,7 @@ void NoteSequenceEditPage::keyUp(KeyEvent &event) {
         // switch (layer()) {
         // case Layer::Gate:
 
-        if(!sequence.step().gate() && notesChanged) {
+        if(!sequence.step(stepIndex).gate() && notesChanged) {
             sequence.step(stepIndex).toggleGate();
             event.consume();
             notesChanged = false;
