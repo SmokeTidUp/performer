@@ -306,6 +306,23 @@ void NoteSequenceEditPage::keyDown(KeyEvent &event) {
 void NoteSequenceEditPage::keyUp(KeyEvent &event) {
     _stepSelection.keyUp(event, stepOffset());
     updateMonitorStep();
+
+    const auto &key = event.key();
+    auto &sequence = _project.selectedNoteSequence();
+
+    if (!key.shiftModifier() && key.isStep()) {
+        //TU, PICO! hubert
+        // tohle se musi dit pro kazdy layer, nebo se poseru z toho uz!
+        int stepIndex = stepOffset() + key.step();
+        switch (layer()) {
+        case Layer::Gate:
+            sequence.step(stepIndex).toggleGate();
+            event.consume();
+            break;
+        default:
+            break;
+        }
+    }
 }
 
 void NoteSequenceEditPage::keyPress(KeyPressEvent &event) {
@@ -331,19 +348,7 @@ void NoteSequenceEditPage::keyPress(KeyPressEvent &event) {
     _stepSelection.keyPress(event, stepOffset());
     updateMonitorStep();
 
-    if (!key.shiftModifier() && key.isStep()) {
-        //TU, PICO! hubert
-        // tohle se musi dit pro kazdy layer, nebo se poseru z toho uz!
-        int stepIndex = stepOffset() + key.step();
-        switch (layer()) {
-        case Layer::Gate:
-            sequence.step(stepIndex).toggleGate();
-            event.consume();
-            break;
-        default:
-            break;
-        }
-    }
+    //this is where KeyUp action used to be
 
     if (key.isFunction()) {
         switchLayer(key.function(), key.shiftModifier());
