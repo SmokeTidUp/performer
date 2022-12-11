@@ -338,10 +338,21 @@ void NoteSequenceEditPage::keyUp(KeyEvent &event) {
         } else if (sequence.step(stepIndex).gate() && sequence.step(stepIndex).stepChanged()) {
             event.consume();
             sequence.step(stepIndex).setStepChanged(false);            
-        } else if (!sequence.step(stepIndex).stepChanged())  {
+        } else if (sequence.step(stepIndex).gate() && !sequence.step(stepIndex).stepChanged())  {
+            switch(layer()) {
+                case Layer::Note: {
+                    sequence.step(stepIndex).clear();
+                    break;
+                }
+                default:
+                    sequence.step(stepIndex).toggleGate();
+                break;
+            }
+            event.consume();
+        } else if (!sequence.step(stepIndex).stepChanged()) {
             sequence.step(stepIndex).toggleGate();
             event.consume();
-        } 
+        }
 
             // break;
         // default:
