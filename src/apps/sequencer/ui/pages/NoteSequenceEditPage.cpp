@@ -83,6 +83,7 @@ void NoteSequenceEditPage::enter() {
 
 void NoteSequenceEditPage::exit() {
     _engine.selectedTrackEngine().as<NoteTrackEngine>().setMonitorStep(-1);
+    firstChange = true; // this fixes the fact that once entered, the Note page will register KeyUp event and thus perform an action on the first step. It's a stupid fix really. :) | hubert
 }
 
 void NoteSequenceEditPage::draw(Canvas &canvas) {
