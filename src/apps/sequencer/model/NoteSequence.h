@@ -198,8 +198,8 @@ public:
             return !(*this == other);
         }
 
-        bool stepChanged() const { return this->stepChanged; } // to determine whether the step was changed | hubert
-        void setStepChanged(bool changed) { this->stepChanged = changed; } // set that step was changed | hubert
+        static bool stepChanged() const { return this->stepChanged; } // to determine whether the step was changed | hubert
+        static void setStepChanged(bool changed) { this->stepChanged = changed; } // set that step was changed | hubert
 
 
 
