@@ -394,7 +394,9 @@ void NoteSequenceEditPage::encoder(EncoderEvent &event) {
 
             switch (layer()) {
                 case Layer::Gate:
-                    step.setGate(event.value() > 0);
+                    // added from Note page by hubert
+                    step.setNote(step.note() + event.value() * ((shift && scale.isChromatic()) ? scale.notesPerOctave() : 1));
+                    updateMonitorStep();
                     break;
                 case Layer::GateProbability:
                     step.setGateProbability(step.gateProbability() + event.value());
