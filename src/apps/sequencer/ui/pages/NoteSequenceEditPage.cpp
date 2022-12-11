@@ -341,8 +341,13 @@ void NoteSequenceEditPage::keyUp(KeyEvent &event) {
         else if (!sequence.step(stepIndex).stepChanged())  {
             sequence.step(stepIndex).toggleGate();
             event.consume();
-        } else if (sequence.step(stepIndex).gate() && layer() = Layer::Note) {
-            sequence.step(stepIndex).clear();
+        } else if (sequence.step(stepIndex).gate()) {
+            switch(layer()) {
+                case Layer::Note: {
+
+                    sequence.step(stepIndex).clear();       
+                }
+            }
             event.consume();
         }
 
