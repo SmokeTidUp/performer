@@ -1,11 +1,13 @@
 /*
 TODO hubert
 
-Allow changing note values on Gate layer
-Pushing step button toggles gate on any layer
+
+
 Pushing encoder will initialize to default pitch
 
 Make  note values appear on Gate layer
+Allow changing note values on Gate layer
+Pushing step button toggles gate on any layer
 */
 
 #include "NoteSequenceEditPage.h"
@@ -211,7 +213,7 @@ void NoteSequenceEditPage::draw(Canvas &canvas) {
             break;
         case Layer::Note: {
             // hubert
-            // tohle patri i do Gate layer
+            // this belongs to Gate layer!
             int rootNote = sequence.selectedRootNote(_model.project().rootNote());
             canvas.setColor(0xf);
             FixedStringBuilder<8> str;
@@ -415,7 +417,6 @@ void NoteSequenceEditPage::encoder(EncoderEvent &event) {
                 case Layer::Gate:
                     // added from Note page by hubert
                     step.setNote(step.note() + event.value() * ((shift && scale.isChromatic()) ? scale.notesPerOctave() : 1));
-                    step.setStepChanged(true); // hubert
                     updateMonitorStep();
                     break;
                 case Layer::GateProbability:
@@ -441,7 +442,6 @@ void NoteSequenceEditPage::encoder(EncoderEvent &event) {
                     break;
                 case Layer::Note:
                     step.setNote(step.note() + event.value() * ((shift && scale.isChromatic()) ? scale.notesPerOctave() : 1));
-                    step.setStepChanged(true); // hubert
                     updateMonitorStep();
                     break;
                 case Layer::NoteVariationRange:
@@ -460,6 +460,8 @@ void NoteSequenceEditPage::encoder(EncoderEvent &event) {
                 case Layer::Last:
                     break;
             }
+
+            step.setStepChanged(true); // hubert        
         }
     }
 
