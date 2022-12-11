@@ -309,6 +309,12 @@ void NoteSequenceEditPage::keyUp(KeyEvent &event) {
     _stepSelection.keyUp(event, stepOffset());
     updateMonitorStep();
 
+    if (firstChange)
+    {
+        firstChange = false;
+        return;
+    }
+
     // this got moved here from the KeyPress function.
     // it's more ergonomic for me to toggle the steps on key up
     // TODO: if gate is off and pitch has been changed during key down, enable gate, if gate is on and pitch has been changed, keep the gate on

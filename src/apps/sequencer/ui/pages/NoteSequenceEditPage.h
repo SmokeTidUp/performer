@@ -60,6 +60,7 @@ private:
     bool _showDetail;
     uint32_t _showDetailTicks;
 
+    bool firstChange = true; // hubert
 
     NoteSequenceListModel _listModel;
 
