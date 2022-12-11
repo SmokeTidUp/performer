@@ -198,6 +198,11 @@ public:
             return !(*this == other);
         }
 
+        bool setStepChanged (bool changed) { stepChanged = changed; } // set that step was changed | hubert
+        bool stepChanged () { return stepChanged; } // to determine whether the step was changed | hubert
+
+
+
     private:
         union {
             uint32_t raw;
@@ -462,6 +467,8 @@ private:
     StepArray _steps;
 
     uint8_t _edited;
+
+    bool stepChanged = false; // to determine whether the step was changed
 
     friend class NoteTrack;
 };
