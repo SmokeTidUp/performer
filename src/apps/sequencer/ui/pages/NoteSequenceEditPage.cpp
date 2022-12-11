@@ -71,13 +71,14 @@ NoteSequenceEditPage::NoteSequenceEditPage(PageManager &manager, PageContext &co
         return sequence.step(a).layerValue(layer) == sequence.step(b).layerValue(layer);
     });
 
-    firstChange = true;
 }
 
 void NoteSequenceEditPage::enter() {
     updateMonitorStep();
 
     _showDetail = false;
+    
+    firstChange = true;
 }
 
 void NoteSequenceEditPage::exit() {
