@@ -78,7 +78,7 @@ void NoteSequenceEditPage::enter() {
 
     _showDetail = false;
     
-    firstChange = true;
+    firstChange = true; // this fixes the fact that once entered, the Note page will register KeyUp event and thus perform an action on the first step. It's a stupid fix really. :) | hubert
 }
 
 void NoteSequenceEditPage::exit() {
@@ -312,7 +312,7 @@ void NoteSequenceEditPage::keyUp(KeyEvent &event) {
     _stepSelection.keyUp(event, stepOffset());
     updateMonitorStep();
 
-    if (firstChange)
+    if (firstChange) // this fixes the fact that once entered, the Note page will register KeyUp event and thus perform an action on the first step. It's a stupid fix really. :) | hubert
     {
         firstChange = false;
         return;
@@ -341,6 +341,9 @@ void NoteSequenceEditPage::keyUp(KeyEvent &event) {
         else if (!sequence.step(stepIndex).stepChanged())  {
             sequence.step(stepIndex).toggleGate();
             event.consume();
+        } else if (sequence.step(stepIndex).gate() && layer() = Layer::Note) {
+            sequence.step(stepIndex).clear();
+            event.consume();
         }
 
             // break;
@@ -348,6 +351,7 @@ void NoteSequenceEditPage::keyUp(KeyEvent &event) {
             // break;
         //}
     }
+
 }
 
 void NoteSequenceEditPage::keyPress(KeyPressEvent &event) {
