@@ -199,7 +199,7 @@ public:
         }
 
         bool stepChanged() const { return _data1.stepChanged; } // to determine whether the step was changed | hubert
-        void setStepChanged(bool changed) { changed ? _data1.stepChanged = 1 : _data1.stepChanged = 0 } // set that step was changed | hubert
+        void setStepChanged(bool changed) { changed ? _data1.stepChanged = 1 : _data1.stepChanged = 0; } // set that step was changed | hubert
 
 
 
