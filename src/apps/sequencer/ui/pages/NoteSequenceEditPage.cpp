@@ -307,21 +307,31 @@ void NoteSequenceEditPage::keyUp(KeyEvent &event) {
     _stepSelection.keyUp(event, stepOffset());
     updateMonitorStep();
 
+    // this got moved here from the KeyPress function.
+    // it's more ergonomic for me to toggle the steps on key up
+    // TODO: if gate is off and pitch has been changed during key down, enable gate, if gate is on and pitch has been changed, keep the gate on
     const auto &key = event.key();
     auto &sequence = _project.selectedNoteSequence();
 
     if (!key.shiftModifier() && key.isStep()) {
-        //TU, PICO! hubert
-        // tohle se musi dit pro kazdy layer, nebo se poseru z toho uz!
-        int stepIndex = stepOffset() + key.step();
-        switch (layer()) {
-        case Layer::Gate:
+        
+        //int stepIndex = stepOffset() + key.step();
+        // switch (layer()) {
+        // case Layer::Gate:
+
+        if(!sequence.step().gate() && noteChanged) {
             sequence.step(stepIndex).toggleGate();
             event.consume();
-            break;
-        default:
-            break;
+            noteChanged = false;
+        } else if (!noteChanged) {
+            sequence.step(stepIndex).toggleGate();
+            event.consume();
         }
+
+            // break;
+        // default:
+            // break;
+        //}
     }
 }
 
@@ -401,6 +411,7 @@ void NoteSequenceEditPage::encoder(EncoderEvent &event) {
                 case Layer::Gate:
                     // added from Note page by hubert
                     step.setNote(step.note() + event.value() * ((shift && scale.isChromatic()) ? scale.notesPerOctave() : 1));
+                    noteChanged = true;
                     updateMonitorStep();
                     break;
                 case Layer::GateProbability:
