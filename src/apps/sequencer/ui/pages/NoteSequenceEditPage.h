@@ -61,6 +61,7 @@ private:
     uint32_t _showDetailTicks;
 
     bool firstChange = true; // hubert
+    int lastPitch; // hubert
 
     NoteSequenceListModel _listModel;
 
