@@ -1,9 +1,9 @@
 /*
 TODO hubert
 
+remember last edited note's pitch
 
-
-Pushing encoder will initialize to default pitch
+??? Pushing encoder will initialize to default pitch
 
 Make  note values appear on Gate layer
 Allow changing note values on Gate layer
@@ -333,6 +333,7 @@ void NoteSequenceEditPage::keyUp(KeyEvent &event) {
 
         if(!sequence.step(stepIndex).gate() && sequence.step(stepIndex).stepChanged()) {
             sequence.step(stepIndex).toggleGate();
+            sequence.step(stepIndex).setNote(lastPitch);
             event.consume();
             sequence.step(stepIndex).setStepChanged(false);
         } else if (sequence.step(stepIndex).gate() && sequence.step(stepIndex).stepChanged()) {
@@ -354,6 +355,7 @@ void NoteSequenceEditPage::keyUp(KeyEvent &event) {
             event.consume();
         }
 
+        lastPitch = sequence.step().note();
             // break;
         // default:
             // break;
