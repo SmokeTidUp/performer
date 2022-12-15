@@ -77,7 +77,7 @@ void Engine::update() {
 
         _cvInput.update();
         updateOverrides();
-        _cvOutput.update();
+        // _cvOutput.update(); // testing if removing this will keep the CV outputs' values if the engine gets stopped
         _gateOutput.update();
         return;
     }
