@@ -88,8 +88,8 @@ void NoteTrackEngine::reset() {
     _prevCondition = false;
     _activity = false;
     _gateOutput = false;
-    _cvOutput = 0.f;
-    _cvOutputTarget = 0.f;
+    // _cvOutput = 0.f; testing if disabling this will keep the pitch after sequencer stops
+    // _cvOutputTarget = 0.f;
     _slideActive = false;
     _gateQueue.clear();
     _cvQueue.clear();
