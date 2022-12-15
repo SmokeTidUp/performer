@@ -334,10 +334,8 @@ void NoteSequenceEditPage::keyUp(KeyEvent &event) {
         if(!sequence.step(stepIndex).gate() && sequence.step(stepIndex).stepChanged()) {
             sequence.step(stepIndex).toggleGate();
             event.consume();
-            sequence.step(stepIndex).setStepChanged(false);
         } else if (sequence.step(stepIndex).gate() && sequence.step(stepIndex).stepChanged()) {
-            event.consume();
-            sequence.step(stepIndex).setStepChanged(false);            
+            event.consume();     
         } else if (sequence.step(stepIndex).gate() && !sequence.step(stepIndex).stepChanged())  {
             switch(layer()) {
                 case Layer::Note: {
@@ -354,6 +352,7 @@ void NoteSequenceEditPage::keyUp(KeyEvent &event) {
             event.consume();
         }
 
+        sequence.step(stepIndex).setStepChanged(false);       
         lastPitch = sequence.step(stepIndex).note();
             // break;
         // default:
