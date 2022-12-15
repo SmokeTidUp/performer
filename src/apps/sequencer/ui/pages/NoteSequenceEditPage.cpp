@@ -357,7 +357,7 @@ void NoteSequenceEditPage::keyUp(KeyEvent &event) {
         sequence.step(stepIndex).setStepChanged(false);
         lastPitch = sequence.step(stepIndex).note();
         lastStepValues = sequence.step(stepIndex);
-        lastStepValues().setGate(true);
+        lastStepValues.setGate(true);
             // break;
         // default:
             // break;
