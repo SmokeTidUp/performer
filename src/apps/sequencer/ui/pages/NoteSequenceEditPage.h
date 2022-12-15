@@ -62,6 +62,7 @@ private:
 
     bool firstChange = true; // hubert
     int lastPitch; // hubert
+    NoteSequence::Step lastStepValues;
 
     NoteSequenceListModel _listModel;
 

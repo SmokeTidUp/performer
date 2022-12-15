@@ -90,6 +90,7 @@ void NoteTrackEngine::reset() {
     _gateOutput = false;
     //_cvOutput = 0.f; //testing if disabling this will keep the pitch after sequencer stops | hubert
     //_cvOutputTarget = 0.f; //testing if disabling this will keep the pitch after sequencer stops | hubert
+    // test was successful, these two lines are indeed the evil! hope that them missing doesn't mean breaking something else...
     _slideActive = false;
     _gateQueue.clear();
     _cvQueue.clear();

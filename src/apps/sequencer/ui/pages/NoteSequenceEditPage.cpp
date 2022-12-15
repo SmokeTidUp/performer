@@ -349,12 +349,14 @@ void NoteSequenceEditPage::keyUp(KeyEvent &event) {
             event.consume();
         } else if (!sequence.step(stepIndex).gate() && !sequence.step(stepIndex).stepChanged()) {
             sequence.step(stepIndex).toggleGate();
-            sequence.step(stepIndex).setNote(lastPitch);
+            //sequence.step(stepIndex).setNote(lastPitch);
+            sequence.step(stepIndex) = lastStepValues;
             event.consume();
         }
 
         sequence.step(stepIndex).setStepChanged(false);
         lastPitch = sequence.step(stepIndex).note();
+        lastStepValues = sequence.step(stepIndex);
             // break;
         // default:
             // break;
