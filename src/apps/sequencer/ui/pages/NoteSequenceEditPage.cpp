@@ -334,7 +334,6 @@ void NoteSequenceEditPage::keyUp(KeyEvent &event) {
         if(!sequence.step(stepIndex).gate() && sequence.step(stepIndex).stepChanged()) {
             sequence.step(stepIndex).toggleGate();
             event.consume();
-            sequence.step(stepIndex).setNote(lastPitch);
             sequence.step(stepIndex).setStepChanged(false);
         } else if (sequence.step(stepIndex).gate() && sequence.step(stepIndex).stepChanged()) {
             event.consume();
