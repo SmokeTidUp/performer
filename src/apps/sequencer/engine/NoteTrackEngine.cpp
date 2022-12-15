@@ -89,7 +89,7 @@ void NoteTrackEngine::reset() {
     _activity = false;
     _gateOutput = false;
     //_cvOutput = 0.f; //testing if disabling this will keep the pitch after sequencer stops | hubert
-    _cvOutputTarget = 0.f; //testing if disabling this will keep the pitch after sequencer stops | hubert
+    //_cvOutputTarget = 0.f; //testing if disabling this will keep the pitch after sequencer stops | hubert
     _slideActive = false;
     _gateQueue.clear();
     _cvQueue.clear();
