@@ -306,6 +306,16 @@ void NoteTrackEngine::triggerStep(uint32_t tick, uint32_t divisor) {
 
     uint32_t gateOffset = (divisor * step.gateOffset()) / (NoteSequence::GateOffset::Max + 1);
 
+    // This might be where we send the midi note in case this is a first step, to reset external sequencers.
+    // IDK Hubert
+
+    if (_currentStep == sequence.firstStep())
+    {
+        _engine.midiOutputEngine().sendGate(_track.trackIndex(), true);
+        /* code */
+    }
+    // end of added code
+
     bool stepGate = evalStepGate(step, _noteTrack.gateProbabilityBias()) || useFillGates;
     if (stepGate) {
         stepGate = evalStepCondition(step, _sequenceState.iteration(), useFillCondition, _prevCondition);
