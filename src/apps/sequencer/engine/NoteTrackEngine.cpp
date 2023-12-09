@@ -306,20 +306,17 @@ void NoteTrackEngine::triggerStep(uint32_t tick, uint32_t divisor) {
 
     uint32_t gateOffset = (divisor * step.gateOffset()) / (NoteSequence::GateOffset::Max + 1);
 
-    // This might be where we send the midi note in case this is a first step, to reset external sequencers.
-    // IDK Hubert
+    
 
-    if (_currentStep == sequence.firstStep())
-    {
-        _engine.midiOutputEngine().sendGate(_track.trackIndex(), true);
-        /* code */
-    }
-    // end of added code
+
+
+    
 
     bool stepGate = evalStepGate(step, _noteTrack.gateProbabilityBias()) || useFillGates;
     if (stepGate) {
         stepGate = evalStepCondition(step, _sequenceState.iteration(), useFillCondition, _prevCondition);
     }
+
 
     if (stepGate) {
         uint32_t stepLength = (divisor * evalStepLength(step, _noteTrack.lengthBias())) / NoteSequence::Length::Range;
@@ -328,11 +325,23 @@ void NoteTrackEngine::triggerStep(uint32_t tick, uint32_t divisor) {
             uint32_t retriggerLength = divisor / stepRetrigger;
             uint32_t retriggerOffset = 0;
             while (stepRetrigger-- > 0 && retriggerOffset <= stepLength) {
+                // This might be where we send the midi note in case this is a first step, to reset external sequencers.
+                // IDK Hubert
+
+                sendMidiOnFirstGate(_sequenceState.step(), _track.trackIndex());
+                
+                // end of added code
                 _gateQueue.pushReplace({ Groove::applySwing(tick + gateOffset + retriggerOffset, swing()), true });
                 _gateQueue.pushReplace({ Groove::applySwing(tick + gateOffset + retriggerOffset + retriggerLength / 2, swing()), false });
                 retriggerOffset += retriggerLength;
             }
         } else {
+            // This might be where we send the midi note in case this is a first step, to reset external sequencers.
+            // IDK Hubert
+
+            sendMidiOnFirstGate(_sequenceState.step(), _track.trackIndex()+36);
+            
+            // end of added code
             _gateQueue.pushReplace({ Groove::applySwing(tick + gateOffset, swing()), true });
             _gateQueue.pushReplace({ Groove::applySwing(tick + gateOffset + stepLength, swing()), false });
         }
@@ -342,6 +351,14 @@ void NoteTrackEngine::triggerStep(uint32_t tick, uint32_t divisor) {
         const auto &scale = evalSequence.selectedScale(_model.project().scale());
         int rootNote = evalSequence.selectedRootNote(_model.project().rootNote());
         _cvQueue.push({ Groove::applySwing(tick + gateOffset, swing()), evalStepNote(step, _noteTrack.noteProbabilityBias(), scale, rootNote, octave, transpose), step.slide() });
+    }
+}
+
+void NoteTrackEngine::sendMidiOnFirstGate(int seq_index, int channel) { // Hubert's function
+    int kokot = _sequence->isFirstGate(seq_index);
+    
+    if (kokot) {
+        _engine.midiOutputEngine().sendMIDInote(9, channel);
     }
 }
 

@@ -432,7 +432,10 @@ public:
     void clear();
     void clearSteps();
 
+    // added by Hubert
     bool isEdited() const;
+    int isFirstGate(int seq_index) const;
+    // end of added code
 
     void setGates(std::initializer_list<int> gates);
     void setNotes(std::initializer_list<int> notes);

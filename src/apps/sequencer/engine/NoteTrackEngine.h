@@ -48,6 +48,8 @@ public:
 private:
     void triggerStep(uint32_t tick, uint32_t divisor);
     void recordStep(uint32_t tick, uint32_t divisor);
+    void sendMidiOnFirstGate(int sequence_index, int channel);
+
     int noteFromMidiNote(uint8_t midiNote) const;
 
     bool fill() const {

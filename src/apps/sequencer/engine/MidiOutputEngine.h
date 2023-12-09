@@ -25,6 +25,9 @@ public:
     void sendSlide(int trackIndex, bool slide);
     void sendCv(int trackIndex, float cv);
 
+    //added by Hubert
+    void sendMIDInote(int channel, int note);
+
 private:
     struct OutputState {
         enum Requests {

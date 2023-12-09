@@ -148,6 +148,25 @@ void MidiOutputEngine::sendCv(int trackIndex, float cv) {
     }
 }
 
+// added by Hubert
+void MidiOutputEngine::sendMIDInote(int channel, int note) {
+    // const auto &output = _midiOutput.output(channel);
+    // auto &outputState = _outputStates[channel];
+    // outputState.note = 20;
+    // outputState.velocity = 100;
+    // outputState.setRequest(true);
+
+    auto &outputState = _outputStates[channel];
+
+    MidiPort port = MidiPort(outputState.target.port());
+
+    
+    sendMidi(port, MidiMessage::makeNoteOn(channel, note, 100));
+    sendMidi(port, MidiMessage::makeNoteOff(channel, note, 100));
+    
+}
+// end of added code
+
 void MidiOutputEngine::resetOutput(int outputIndex) {
     auto &outputState = _outputStates[outputIndex];
 

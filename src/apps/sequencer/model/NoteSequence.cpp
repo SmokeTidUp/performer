@@ -239,6 +239,7 @@ void NoteSequence::clearSteps() {
         step.clear();
     }
 }
+// added by hubert
 
 bool NoteSequence::isEdited() const {
     auto clearStep = Step();
@@ -249,6 +250,30 @@ bool NoteSequence::isEdited() const {
     }
     return false;
 }
+
+int NoteSequence::isFirstGate(int seq_index) const {
+    // bool fs_index = 0;
+
+    // for (auto &step : _steps) {
+    //     if(step.gate()){
+    //         fs_index++;
+    //         break;
+    //     }
+    // }
+    // //return step == _steps[seq_index];
+    // return fs_index;
+
+    for (int i = seq_index - 1; i >= 0; --i)
+    {
+        if(_steps[i].gate())
+            return 0;
+    }
+
+    return 1;
+}
+// end of added code
+
+
 
 void NoteSequence::setGates(std::initializer_list<int> gates) {
     size_t step = 0;
