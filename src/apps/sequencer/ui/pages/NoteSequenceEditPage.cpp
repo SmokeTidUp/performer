@@ -336,7 +336,7 @@ void NoteSequenceEditPage::keyUp(KeyEvent &event) {
             event.consume();
         } else if (sequence.step(stepIndex).gate() && sequence.step(stepIndex).stepChanged()) {
             event.consume();     
-        } else if (sequence.step(stepIndex).gate() && !sequence.step(stepIndex).stepChanged())  {
+        } else if (sequence.step(stepIndex).gate() && !sequence.step(stepIndex).stepChanged())  { // hubert | is this what makes the step not ediable on first keyup?
             switch(layer()) {
                 case Layer::Note: {
                     sequence.step(stepIndex).clear();
